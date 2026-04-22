@@ -1,4 +1,3 @@
-package productmanagement;
 
 public class InsufficientBalanceException extends RuntimeException {
 

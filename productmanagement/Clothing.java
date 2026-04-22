@@ -1,9 +1,8 @@
-package productmanagement;
 
 public class Clothing extends Product {
 
-    private String size;
-    private String material;
+    private String size; // e.g. "M", "L", "XL"
+    private String material; // e.g. "Cotton", "Polyester"
 
     public Clothing(String productId, String name, double price,
             int stockQuantity, String size, String material) {
@@ -12,16 +11,19 @@ public class Clothing extends Product {
         this.material = material;
     }
 
+    // POLYMORPHISM: returns "Clothing" as category
     @Override
     public String getCategory() {
         return "Clothing & Apparel";
     }
 
+    // POLYMORPHISM: Clothing gets 15% seasonal discount
     @Override
     public double applyDiscount() {
         return getPrice() * 0.15;
     }
 
+    // Clothing-specific method
     public void showDetails() {
         System.out.println(getName() + " — Size: " + size + ", Material: " + material);
     }

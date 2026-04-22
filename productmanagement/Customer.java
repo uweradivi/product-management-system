@@ -1,4 +1,3 @@
-package productmanagement;
 
 public class Customer {
 
@@ -8,34 +7,46 @@ public class Customer {
     private double walletBalance;
 
     public Customer(String customerId, String name, String email, double walletBalance) {
+        if (name == null || name.trim().isEmpty())
+            throw new NullPointerException("Customer name cannot be null or empty.");
+        if (walletBalance < 0)
+            throw new IllegalArgumentException("Wallet balance cannot be negative. Got: " + walletBalance);
+
         this.customerId = customerId;
         this.name = name;
         this.email = email;
         this.walletBalance = walletBalance;
     }
 
-    public void purchase(Product product, int quantity) {
+    /**
+     * Purchase a product and record the order in the Map.
+     * 
+     * @param store — needed to record order into Map
+     */
+    public void purchase(Product product, int quantity, ProductManager store) {
         double totalCost = (product.getPrice() - product.applyDiscount()) * quantity;
 
-        System.out.println("\n[PURCHASE] " + name + " wants to buy " + quantity + " x " + product.getName());
-        System.out.printf("  Total cost (after discount): $%.2f%n", totalCost);
-        System.out.printf("  Wallet balance: $%.2f%n", walletBalance);
+        System.out.println("\n[PURCHASE] " + name + " wants " + quantity
+                + " x " + product.getName());
+        System.out.printf("  Cost: $%.2f | Wallet: $%.2f%n", totalCost, walletBalance);
 
-        if (walletBalance >= totalCost) {
-            boolean success = product.sell(quantity);
-            if (success) {
-                walletBalance -= totalCost;
-                System.out.printf("  Purchase SUCCESSFUL! Remaining balance: $%.2f%n", walletBalance);
-            }
-        } else {
-            System.out.println("  Purchase FAILED: Insufficient wallet balance.");
-        }
+        // CUSTOM EXCEPTION: InsufficientBalanceException
+        if (walletBalance < totalCost)
+            throw new InsufficientBalanceException(name, totalCost, walletBalance);
+
+        // CUSTOM EXCEPTION: OutOfStockException (via product.sell)
+        product.sell(quantity);
+        walletBalance -= totalCost;
+
+        // Record this order in the Map (customer ID → list of orders)
+        store.recordOrder(customerId, name, product.getName(), quantity, totalCost);
+
+        System.out.printf("  SUCCESSFUL! Remaining balance: $%.2f%n", walletBalance);
     }
 
     public void showProfile() {
-        System.out.println("=== Customer Profile ===");
+        System.out.println("=== Customer: " + name + " ===");
         System.out.println("  ID     : " + customerId);
-        System.out.println("  Name   : " + name);
         System.out.println("  Email  : " + email);
         System.out.printf("  Wallet : $%.2f%n", walletBalance);
     }

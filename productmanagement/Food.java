@@ -1,8 +1,8 @@
-package productmanagement;
 
 public class Food extends Product {
 
-    private String expiryDate;
+    // Extra field specific to Food
+    private String expiryDate; // e.g. "2025-12-31"
 
     public Food(String productId, String name, double price,
             int stockQuantity, String expiryDate) {
@@ -10,16 +10,19 @@ public class Food extends Product {
         this.expiryDate = expiryDate;
     }
 
+    // POLYMORPHISM: returns "Food" as category
     @Override
     public String getCategory() {
         return "Food & Grocery";
     }
 
+    // POLYMORPHISM: Food gets only 5% off
     @Override
     public double applyDiscount() {
         return getPrice() * 0.05;
     }
 
+    // Food-specific method
     public void checkExpiry() {
         System.out.println(getName() + " expires on: " + expiryDate);
     }

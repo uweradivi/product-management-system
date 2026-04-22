@@ -1,4 +1,3 @@
-package productmanagement;
 
 public class InvalidPriceException extends RuntimeException {
 
