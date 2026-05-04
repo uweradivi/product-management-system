@@ -1,0 +1,10 @@
+[2026-05-04 13:01:08] [INFO   ] Default admin account created (username: admin, password: admin123)
+[2026-05-04 13:01:08] [INFO   ] === SmartStore v2.1 Starting ===
+[2026-05-04 13:02:18] [SUCCESS] LOGIN: admin [ADMIN]
+[2026-05-04 13:02:19] [INFO   ] MainView loading for user: admin [ADMIN]
+[2026-05-04 13:02:19] [INFO   ] ProductManager initializing for store: SmartStore
+[2026-05-04 13:02:19] [INFO   ] Loaded 0 products and 0 customers from disk.
+[2026-05-04 13:03:22] [SUCCESS] REGISTER: New user 'divine' role=STAFF
+[2026-05-04 13:03:48] [INFO   ] Inventory CSV export generated: 0 products
+[2026-05-04 13:03:49] [INFO   ] Inventory CSV export generated: 0 products
+[2026-05-04 13:03:49] [INFO   ] Inventory CSV export generated: 0 products
